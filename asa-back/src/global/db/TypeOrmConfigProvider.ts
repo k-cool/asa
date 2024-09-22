@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { User } from 'src/user/user.entity';
-import { DbConfig } from 'src/configuration';
+import { DbConfig } from 'src/global/config/configuration';
 
 @Injectable()
 export class TypeOrmConfigProvider implements TypeOrmOptionsFactory {
@@ -15,7 +15,7 @@ export class TypeOrmConfigProvider implements TypeOrmOptionsFactory {
       type: 'mysql',
       host: dbConfig.host,
       port: dbConfig.port,
-      username: dbConfig.username,
+      username: dbConfig.user,
       password: dbConfig.password,
       database: dbConfig.database,
       entities: [User],

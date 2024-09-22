@@ -4,18 +4,20 @@ import { UserModule } from './user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import configuration from './configuration';
+import configuration from './global/config/configuration';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { TypeOrmConfigProvider } from './db/TypeOrmConfigProvider';
+import { TypeOrmConfigProvider } from './global/db/TypeOrmConfigProvider';
+import { validate } from './global/config/validate';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
+      envFilePath: '.env',
       load: [configuration],
+      validate,
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
